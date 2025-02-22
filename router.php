@@ -54,35 +54,55 @@ if (isset($routerUrl->path[0]))
         case "archive":
             $template = "archive";
             break;
-        case "options":
-            if ($_SERVER["REQUEST_METHOD"] == "POST")
-            {
-                $autologs = (isset($_POST["auto-open-logs"]) && $_POST["auto-open-logs"] == "on");
-                $theme = $_POST["theme"];
-                $theme_override = (isset($_POST["override-theme"]) && $_POST["override-theme"] == "on");
-
-                setcookie("auto-open-logs", $autologs ? "true" : "false", time() + 34560000, "/"); // 400 days
-                setcookie("theme", $theme, time() + 34560000, "/");
-                setcookie("override-theme", $theme_override ? "true" : "false", time() + 34560000, "/");
-            }
-            else
-            {
-                $autologs = (isset($_COOKIE["auto-open-logs"]) && $_COOKIE["auto-open-logs"] == "true");
-                $theme = $_COOKIE["theme"] ?? "default";
-                $theme_override = (isset($_COOKIE["override-theme"]) && $_COOKIE["override-theme"] == "true");
-            }
-
-            $data->autologs_opt = $autologs;
-            $data->theme_opt = $theme;
-            $data->theme = ($theme == "default") ? null : $theme;
-            $dont_change_theme = true;
-            $data->theme_override = $theme_override;
-
-            $template = "options";
-            break;
         case "mspa":
             require "lib/mspa_funnel.php";
             mspa_funnel(substr($_SERVER["REQUEST_URI"], 6));
+            break;
+        case "save":
+        case "autosave":
+        case "load":
+        case "delete":
+            if (count($routerUrl->path) != 3)
+            {
+                http_response_code(404);
+                break;
+            }
+
+            $action = $routerUrl->path[0];
+            $s = $routerUrl->path[1];
+            $p = $routerUrl->path[2];
+
+            switch ($action)
+            {
+                case "autosave":
+                    setcookie("autosave", "true", time() + 34560000, "/");
+                    // fall-thru
+                case "save":
+                    setcookie("s_cookie", $s, time() + 34560000, "/"); // 400 days
+                    setcookie("p_cookie", $p, time() + 34560000, "/");
+                    break;
+                case "delete":
+                    setcookie("autosave", "", -1, "/");
+                    setcookie("s_cookie", "", -1, "/");
+                    setcookie("p_cookie", "", -1, "/");
+                    break;
+                case "load":
+                    if (!isset($_COOKIE["s_cookie"]) || !isset($_COOKIE["p_cookie"])
+                    || empty($_COOKIE["s_cookie"]) || empty($_COOKIE["p_cookie"]))
+                    {
+                        header("Location: /read/$s/$p?didntsave=1");
+                        die();
+                    }
+
+                    $s_cookie = $_COOKIE["s_cookie"];
+                    $p_cookie = $_COOKIE["p_cookie"];
+
+                    header("Location: /read/$s_cookie/$p_cookie");
+                    die();
+                    break;
+            }
+
+            header("Location: /read/$s/$p");
             break;
         case "jailbreak":
         case "bard-quest":
@@ -130,6 +150,11 @@ if (isset($routerUrl->path[0]))
             }
             break;
         case "read":
+            if (isset($_GET["didntsave"]) && $_GET["didntsave"])
+            {
+                $data->didnt_save = true;
+            }
+
             // I HATE OPENBOUND I HATE OPENBOUND I HATE OPENBOUND I HATE OPENBOUND
             // I HATE OPENBOUND I HATE OPENBOUND I HATE OPENBOUND I HATE OPENBOUND
             // I HATE OPENBOUND I HATE OPENBOUND I HATE OPENBOUND I HATE OPENBOUND
@@ -205,6 +230,18 @@ if (isset($routerUrl->path[0]))
                 else if ($p == "009305")
                 {
                     $template = "shes8ack";
+                    break;
+                }
+                // Collide
+                else if ($p == "009987")
+                {
+                    $template = "collide";
+                    break;
+                }
+                // ACT 7
+                else if ($p == "010027")
+                {
+                    $template = "ACT7";
                     break;
                 }
                 // End credits
@@ -313,22 +350,6 @@ if (isset($routerUrl->path[0]))
             {
                 $data->theme = "trickster";
             }
-            // Collide
-            else if ($ip == 9987)
-            {
-                $data->theme = "collide";
-                $data->banner = [
-                    "image" => "/mspa/images/collide_header.gif"
-                ];
-            }
-            // ACT 7
-            else if ($ip == 10027)
-            {
-                $data->theme = "act7";
-                $data->banner = [
-                    "image" => "/mspa/images/act7_header.gif"
-                ];
-            }
             // ACT 6 ACT 5 ACT 1 x2 COMBO!!!
             else if ($ip > 7687 && $ip < 7826)
             {
@@ -340,9 +361,6 @@ if (isset($routerUrl->path[0]))
                     break;
                 }
                 $x2combo = true;
-                $data->banner = [
-                    "image" => "/assets/img/act6act5act1x2combo.gif"
-                ];
             }
             // HOMOSUCK
             else if (($ip > 8142 && $ip < 8178)
@@ -385,25 +403,6 @@ if (isset($routerUrl->path[0]))
                     http_response_code(404);
                     break;
                 }
-            }
-
-            // Gamepad for walkarounds
-            switch ($ip)
-            {
-                case 2153: // [S] YOU THERE. BOY.
-                case 2376: // [S] ==>
-                case 3258: // [S] ACT 4 ==>
-                case 4692: // [S] Past Karkat: Wake up.
-                case 4979: // [S] John: Enter village.
-                case 5221: // [S] Kanaya: Return to the core.
-                case 5338: // [S] Equius: Seek the highb100d.
-                case 5595: // [S] Seer: Descend.
-                case 5617: // [S] Terezi: Proceed. (not playable, but you need to hit an arrow key to proceed with it)
-                case 5660: // [S] Flip. (ditto)
-                case 7163: // [S] ACT 6 INTERMISSION 3
-                case 7208: // [S][A6I3] ==>
-                case 7298: // [S][A6I3] ==>
-                    $data->gamepad = true;
             }
 
             $data->page = $page;
@@ -526,59 +525,63 @@ else
 // Init static data shared across all pages
 $data->links = [
     [
-        "text" => "MSPA TO GO",
+        "text" => "MSPA LEGACY",
         "url" => "/",
         "color" => "white"
     ],
+    "candycorn",
     [
         "text" => "ARCHIVE",
         "url" => "/archive",
         "color" => "green"
     ],
+    "separator",
     [
         "text" => "GITHUB",
-        "url" => "https://github.com/aubymori/MSPAToGo",
+        "url" => "https://github.com/aubymori/MSPALegacy",
         "color" => "green",
         "newtab" => true
     ],
+    "candycorn",
     [
         "text" => "MAP",
         "url" => "/map",
         "color" => "blue"
     ],
+    "separator",
     [
         "text" => "LOG",
         "url" => "/log",
         "color" => "blue"
     ],
+    "separator",
     [
         "text" => "SEARCH",
         "url" => "/search",
         "color" => "blue"
     ],
+    "candycorn",
     [
         "text" => "SHOP",
         "url" => "https://topatoco.com/collections/hussie",
         "color" => "yellow",
         "newtab" => true
     ],
+    "separator",
     [
         "text" => "MUSIC",
         "url" => "https://homestuck.bandcamp.com/",
         "color" => "yellow",
         "newtab" => true
     ],
-    [
-        "text" => "OPTIONS",
-        "url" => "/options",
-        "color" => "orange"
-    ],
+    "candycorn",
     [
         "text" => "SECRETS",
         "url" => "http://www.mspaintadventures.com/unlock.html",
         "color" => "orange",
         "newtab" => true
     ],
+    "separator",
     [
         "text" => "CREDITS",
         "url" => "http://www.mspaintadventures.com/credits.html",
@@ -587,16 +590,6 @@ $data->links = [
     ],
 ];
 
-// Options
-$data->autologs = (isset($_COOKIE["auto-open-logs"]) && $_COOKIE["auto-open-logs"] == "true");
-$theme = $_COOKIE["theme"] ?? null;
-$theme = ($theme == "default") ? null : $theme;
-if ((!isset($dont_change_theme) || !$dont_change_theme)
-&& (is_null($data->theme) || (isset($_COOKIE["override-theme"]) && $_COOKIE["override-theme"] == "true")))
-{
-    $data->theme = $theme;
-}
-
 $homosuck_link_overrides = [
     "WORTHLESS GARBAGE.",
     "STUPID.",
@@ -604,19 +597,29 @@ $homosuck_link_overrides = [
     "WOW.",
     "NO.",
     "BORING.",
-    "BULLSHIT.",
+    "OVERPRICED TRASH.",
     "DUMB NOISE.",
-    "WHO CARES?",
+    "BULLSHIT.",
     "WHATEVER.",
-    "MORONS."
 ];
 
 if ($data->theme == "homosuck")
 {
     for ($i = 0; $i < count($homosuck_link_overrides); $i++)
     {
-        $data->links[$i]["text"] = $homosuck_link_overrides[$i];
+        if (!is_null($homosuck_link_overrides[$i]))
+            $data->links[$i * 2]["text"] = $homosuck_link_overrides[$i];
     }
 }
+
+$data->themes = json_decode(file_get_contents("static/themes.json"));
+$twig->addFunction(new \Twig\TwigFunction("get_theme", function() use ($data) {
+    if (isset($data->theme) && !is_null($data->theme)
+    && isset($data->themes->{$data->theme}) && !is_null($data->themes->{$data->theme}))
+    {
+        return $data->themes->{$data->theme};
+    }
+    return $data->themes->default;
+}));
 
 echo $twig->render($template . ".html", [$data]);

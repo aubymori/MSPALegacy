@@ -1,93 +1,151 @@
 {% extends "pageframe.html" %}
+{% import "macros/general.html" as macros %}
 
 {% block css %}
 <link rel="stylesheet" href="/assets/css/archive.css">
 {% endblock %}
 
 {% block page %}
-<h2 id="title">ARCHIVE</h2>
-<div id="content">
-    <span>Adventures listed from newest to oldest.</span>
-    <div class="archive-adventure">
-        <a href="/read/6" class="archive-image">
-            <img src="/assets//img/archive_hs.gif">
-        </a>
-        <div class="archive-info">
-            <a href="/read/6" class="archive-title">HOMESTUCK</a>
-            <span class="archive-desc">
-                A tale about a boy and his friends and a game they play together. About 8100 pages.
-                <b>[FINISHED]</b>
-            </span>
-            <div class="archive-links">
-                <a href="/map/6">MAP</a>
-                |
-                <a href="/log/6">LOG</a>
-                |
-                {# Multiple Homestuck searches, best to just direct user to menu. #}
-                <a href="/search">SEARCH</a>
-                |
-                <a href="http://www.mspaintadventures.com/credits.html" target="_blank">
-                    SOUND AND ART CREDITS
-                </a>
-            </div>
-        </div>
-    </div>
-    <div class="archive-adventure">
-        <a href="/read/4" class="archive-image">
-            <img src="/assets/img/archive_ps.gif">
-        </a>
-        <div class="archive-info">
-            <a href="/read/4" class="archive-title">PROBLEM SLEUTH</a>
-            <span class="archive-desc">
-                An adventure about a hard boiled detective in his office. 22 chapters, about 1700 pages.
-                <b>[FINISHED]</b>
-            </span>
-        </div>
-        <div class="archive-links">
+{{ macros.title("ARCHIVE") }}
+<tr>
+<td>
+<center>
+<table width="80%" cellspacing="0" cellpadding="0" border="0">
+<tbody>
+<tr>
+<td>
+<center>
+    Adventures listed from newest to oldest.
+    <br><br>
+    <table width="100%" cellspacing="0" cellpadding="5" border="0">
+    <tbody>
+    <tr>
+        <td width="25%" valign="top">
+            <a href="/read/6">
+                <img src="/assets/img/archive_hs.gif" border="0">
+            </a>
+        </td>
+        <td width="75%" valign="top">
+        <center>
+            <a href="/read/6">
+                <p style="font-weight: bold; font-family: courier, monospace;">
+                    <font size="6">HOMESTUCK<br></font>
+                </p>
+            </a>
+            A tale about a boy and his friends and a game they play together. About 8100 pages. <b>[FINISHED]</b>
+            <br>
+            <br>
+            <a href="/map/6">MAP</a>
+            |
+            <a href="/log/6">LOG</a>
+            |
+            {# Multiple Homestuck searches, best to just direct user to menu. #}
+            <a href="/search">SEARCH</a>
+            |
+            <a href="http://www.mspaintadventures.com/credits.html" target="_blank">
+                SOUND AND ART CREDITS
+            </a>
+        </center>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+    <br><br>
+    <table width="100%" cellspacing="0" cellpadding="5" border="0">
+    <tbody>
+    <tr>
+        <td width="25%" valign="top">
+            <a href="/read/4">
+                <img src="/assets/img/archive_ps.gif" border="0">
+            </a>
+        </td>
+        <td width="75%" valign="top">
+        <center>
+            <a href="/read/4">
+                <p style="font-weight: bold; font-family: courier, monospace;">
+                    <font size="6">PROBLEM SLEUTH<br></font>
+                </p>
+            </a>
+            An adventure about a hard boiled detective in his office. 22 chapters, about 1700 pages. <b>[FINISHED]</b>
+            <br>
+            <br>
             <a href="/map/4">MAP</a>
             |
             <a href="/log/4">LOG</a>
             |
             <a href="/search/4">SEARCH</a>
-        </div>
-    </div>
-    <div class="archive-adventure">
-        <a href="/read/2" class="archive-image">
-            <img src="/assets/img/archive_bq.gif">
-        </a>
-        <div class="archive-info">
-            <a href="/read/2" class="archive-title">BARD QUEST</a>
-            <span class="archive-desc">
-                A young bard's endeavor to slay some dragons. Branching "choose your own adventure" style. 47 pages.
-                <b>[CANCELLED]</b>
-            </span>
-        </div>
-        <div class="archive-links">
-            <a href="/map/2"><s>MAP</s></a>
+        </center>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+    <br><br>
+    <table width="100%" cellspacing="0" cellpadding="5" border="0">
+    <tbody>
+    <tr>
+        <td width="25%" valign="top">
+            <a href="/read/2">
+                <img src="/assets/img/archive_bq.gif" border="0">
+            </a>
+        </td>
+        <td width="75%" valign="top">
+        <center>
+            <a href="/read/2">
+                <p style="font-weight: bold; font-family: courier, monospace;">
+                    <font size="6">BARD QUEST<br></font>
+                </p>
+            </a>
+            A young bard's endeavor to slay some dragons. Branching "choose your own adventure" style. 47 pages. <b>[CANCELLED]</b>
+            <br>
+            <br>
+            <a href="/map/2"><del>MAP</del></a>
             |
             <a href="/log/2">LOG</a>
             |
             <a href="/search/2">SEARCH</a>
-        </div>
-    </div>
-    <div class="archive-adventure">
-        <a href="/read/1" class="archive-image">
-            <img src="/assets/img/archive_jb.gif">
-        </a>
-        <div class="archive-info">
-            <a href="/read/1" class="archive-title">JAILBREAK</a>
-            <span class="archive-desc">
-                A guy tries to escape from prison. 134 pages.
-                <b>[CANCELLED]</b>
-            </span>
-        </div>
-        <div class="archive-links">
-            <a href="/map/1"><s>MAP</s></a>
+        </center>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+    <br><br>
+    <table width="100%" cellspacing="0" cellpadding="5" border="0">
+    <tbody>
+    <tr>
+        <td width="25%" valign="top">
+            <a href="/read/1">
+                <img src="/assets/img/archive_jb.gif" border="0">
+            </a>
+        </td>
+        <td width="75%" valign="top">
+        <center>
+            <a href="/read/1">
+                <p style="font-weight: bold; font-family: courier, monospace;">
+                    <font size="6">JAILBREAK<br></font>
+                </p>
+            </a>
+            A guy tries to escape from prison. 134 pages. <b>[CANCELLED]</b>
+            <br>
+            <br>
+            <a href="/map/1"><del>MAP</del></a>
             |
             <a href="/log/1">LOG</a>
             |
             <a href="/search/1">SEARCH</a>
-        </div>
-    </div>
-</div>
+        </center>
+        </td>
+    </tr>
+    </tbody>
+    </table>
+</center>
+</td>
+</tr>
+</tbody>
+</table>
+</center>
+</td>
+</tr>
+<tr>
+<td height="116"></td>
+</tr>
 {% endblock %}

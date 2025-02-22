@@ -1,0 +1,116 @@
+{
+    "default": {
+        "pageBg": "#535353",
+        "pageColor": "#000000",
+        "cardBg": "#eeeeee",
+        "cardBgDark": "#c6c6c6",
+        "linksBg": "#5a5a5a",
+        "linksColor": "#ffffff",
+        "links": {
+            "white": "#ffffff",
+            "green": "#29ff4a",
+            "blue": "#39d5f6",
+            "yellow": "#f7f72a",
+            "orange": "#ffb529"
+        },
+        "candyCorn": "/assets/img/candycorn.gif",
+        "footer": "/assets/img/bannerframe.gif",
+        "logBg": "#efefef"
+    },
+    "scratch": {
+        "pageBg": "#000000",
+        "pageColor": "#ffffff",
+        "pageLink": "#2cff4b",
+        "cardBg": "#0e4603",
+        "cardBgDark": "#082a00",
+        "linksBg": "#000000",
+        "linksColor": "#ffffff",
+        "links": {
+            "white": "#ffffff",
+            "green": "#ffffff",
+            "blue": "#ffffff",
+            "yellow": "#ffffff",
+            "orange": "#ffffff"
+        },
+        "candyCorn": "/assets/img/candycorn_scratch.gif",
+        "footer": "/assets/img/bannerframe_scratch.png",
+        "logBg": "#000000"
+    },
+    "cascade": {
+        "pageBg": "#000000",
+        "pageColor": "#000000",
+        "pageLink": "#0066ff",
+        "cardBg": "#262626",
+        "cardBgDark": "#262626",
+        "linksBg": "#5a5a5a",
+        "linksColor": "#ffffff",
+        "links": {
+            "white": "#ffffff",
+            "green": "#29ff4a",
+            "blue": "#39d5f6",
+            "yellow": "#f7f72a",
+            "orange": "#ffb529"
+        },
+        "candyCorn": "/assets/img/candycorn.gif",
+        "footer": "/assets/img/bannerframe.gif",
+        "logBg": "#262626"
+    },
+    "sbahj": {
+        "pageBg": "#0707ec",
+        "pageColor": "#000000",
+        "cardBg": "#14ff23",
+        "cardBgDark": "#f400ec",
+        "linksBg": "#000000",
+        "linksColor": "#ffffff",
+        "links": {
+            "white": "#ffffff",
+            "green": "#29ff4a",
+            "blue": "#39d5f6",
+            "yellow": "#f7f72a",
+            "orange": "#ffb529"
+        },
+        "candyCorn": "/assets/img/candycorn.gif",
+        "footer": "/assets/img/bannerframe_sbahj.gif",
+        "logBg": "#14ff23"
+    },
+    "trickster": {
+        "pageBg": "#535353",
+        "pageBgImg": "/assets/img/Z2.gif",
+        "pageColor": "#f9fd6b",
+        "pageLink": "#fb060b",
+        "cardBg": "#ff73fd",
+        "cardBgDark": "#0019b8",
+        "cardBgDarkImg": "/assets/img/bluetile.gif",
+        "linksBg": "#000000",
+        "linksColor": "#ffffff",
+        "links": {
+            "white": "#ffffff",
+            "green": "#29ff4a",
+            "blue": "#39d5f6",
+            "yellow": "#f7f72a",
+            "orange": "#ffb529"
+        },
+        "candyCorn": "/assets/img/candycorn.gif",
+        "footer": "/assets/img/bannerframe_trickster.gif",
+        "logBg": "#ff73fd"
+    },
+    "homosuck": {
+        "pageBg": "#042300",
+        "pageColor": "#2ed73a",
+        "pageLink": "#2ed73a",
+        "cardBg": "#073c00",
+        "cardBgDark": "#168500",
+        "linksBg": "#042300",
+        "linksColor": "#2ed73a",
+        "links": {
+            "white": "#2ed73a",
+            "green": "#2ed73a",
+            "blue": "#2ed73a",
+            "yellow": "#2ed73a",
+            "orange": "#2ed73a"
+        },
+        "candyCorn": "/assets/img/a6a6_tooth.gif",
+        "footer": "/assets/img/a6a6_bannerframe.png",
+        "logBg": "#073c00"
+    }
+}

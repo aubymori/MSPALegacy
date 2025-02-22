@@ -1,0 +1,27 @@
+{% macro title(text) %}
+<tr>
+<td width="100%">
+<table width="600" cellspacing="0" cellpadding="0" border="0" align="center">
+<tbody>
+<tr>
+<td>
+<img src="/assets/img/blankstrip.gif" border="0">
+</td>
+<td>
+    <center>
+        <p style="font-weight: bold; font-family: {{ data.theme == "sbahj" ? "Comic Sans MS" : "courier, monospace"}}; color:{{ get_theme().pageColor }}">
+            <font size="6">
+                {{ text|raw }}
+            </font>
+        </p>
+    </center>
+</td>
+<td>
+<img src="/assets/img/blankstrip.gif" border="0">
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+{% endmacro %}

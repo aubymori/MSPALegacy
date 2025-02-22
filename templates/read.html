@@ -1,4 +1,6 @@
 {% extends "pageframe.html" %}
+{% import "macros/general.html" as macros %}
+{% import "macros/read.html" as read %}
 
 {% block body_attrs %}
 {% for media in data.page.media %}
@@ -20,85 +22,52 @@ onload="Sburb.initialize('JterniaDeploy', '{{ media.xml_url }}', false);"
 {% endif %}
 {% endblock %}
 
-{% block page %}
-{% if data.page.supercartridge %}
-{{ data.page.media[0].html|raw }}
-{% else %}
-<h2 id="title">{{ data.page.title|raw }}</h2>
-<div id="media" class="{{ data.hscroll ? 'hscroll' : '' }}">
+{% block supercartridge %}
 {% for media in data.page.media %}
-{% if media.type == "image" %}
-<img src="{{ media.url }}">
-{% elseif media.type == "flash" %}
-<script>AC_FL_RunContent = 0;</script>
-<script src="{{ media.js_url }}"></script>
-<script language="javascript">
-	if (AC_FL_RunContent == 0)
-	{
-		alert("This page requires AC_RunActiveContent.js.");
-	}
-	else
-	{
-		AC_FL_RunContent(
-			"codebase", "http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0",
-			"width", "{{ media.width }}",
-			"height", "{{ media.height }}",
-			"src", "{{ media.url }}",
-			"quality", "high",
-			"pluginspage", "http://www.macromedia.com/go/getflashplayer",
-			"align", "middle",
-			"play", "true",
-			"loop", "true",
-			"scale", "showall",
-			"wmode", "window",
-			"devicefont", "false",
-			"id", "{{ media.url }}",
-			"bgcolor", "#ffffff",
-			"name", "{{ media.url }}",
-			"menu", "true",
-			"allowFullScreen", "false",
-			"allowScriptAccess","always",
-			"movie", "{{ media.url }}",
-			"salign", ""
-		); //end AC code
-	}
-</script>
-<noscript>
-	<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="{{ media.width }}" height="{{ media.height }}" id="{{ media.url }}" align="middle">
-	<param name="allowScriptAccess" value="sameDomain" />
-	<param name="allowFullScreen" value="false" />
-	<param name="movie" value="{{ media.url }}" /><param name="quality" value="high" /><param name="bgcolor" value="#ffffff" />	<embed src="{{ media.url }}" quality="high" bgcolor="#ffffff" width="{{ media.width }}" height="{{ media.height }}" name="{{ media.url }}" align="middle" allowScriptAccess="sameDomain" allowFullScreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
-	</object>
-</noscript>
-{% elseif media.type == "jternia" %}
-<div id="JterniaDeploy"></div>
-<script src="{{ media.js_url }}"></script>
-{% elseif media.type == "supercartridge" %}
+{% if media.type == "supercartridge" %}
 {{ media.html|raw }}
 {% endif %}
 {% endfor %}
-{% if data.hscroll %}
-<div id="hscroll-arrow">==&gt;</div>
+{% endblock %}
+
+{% block page %}
+{% if not data.page.supercartridge %}
+{{ macros.title(data.page.title) }}
+{{ read.media(data.page.media) }}
+<tr>
+<td height="17"></td>
+</tr>
 {% endif %}
-</div>
+{{ read.text(data.page) }}
+<tr>
+<td height="17"></td>
+</tr>
+<tr>
+<td>
+<table width="600" cellspacing="0" cellpadding="0" border="0" align="center">
+<tbody>
+<tr>
+<td>
+	<font size="5"
+{% if data.theme == "homosuck" %}
+		  color="#000000"
 {% endif %}
-{% if data.fireflies %}
-<div class="content">
-	<canvas id="fbox_0" class="boxtemplate" style="top: {{ random(0, 100) }}%; left: {{ random(25, 75) }}%;"></canvas>
-	<canvas id="fbox_1" class="boxtemplate" style="top: {{ random(0, 100) }}%; left: {{ random(25, 75) }}%;"></canvas>
-	<canvas id="fbox_2" class="boxtemplate" style="top: {{ random(0, 100) }}%; left: {{ random(25, 75) }}%;"></canvas>
-	<canvas id="fbox_3" class="boxtemplate" style="top: {{ random(0, 100) }}%; left: {{ random(25, 75) }}%;"></canvas>
-</div>
+	>
+		{{ read.commands(data.page.commands) }}
+	</font>
+	<br><br><br>
+{% if data.theme == "homosuck" %}
+	<font color="#000000">
 {% endif %}
-<div id="content" data-s="{{ data.s }}" data-p="{{ data.p }}">
-	{% if data.gamepad %}
-	{% include "include/gamepad.html" %}
-	{% endif %}
-	{% from "macros/read.html" import read_text, read_footer, read_commands %}
-	{{ read_text(data.page) }}
-	<div class="commands">
-    {{ read_commands(data.page) }}
-	</div>
-    {{ read_footer(data.page) }}
-</div>
+	{{ read.footer(data.page) }}
+{% if data.theme == "homosuck" %}
+	</font>
+{% endif %}
+	<br><br>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
 {% endblock %}

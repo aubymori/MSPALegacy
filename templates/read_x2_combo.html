@@ -1,71 +1,190 @@
-{% extends "pageframe.html" %}
-
-{% block css %}
-<link rel="stylesheet" href="/assets/css/read_x2_combo.css">
-{% endblock %}
-
-{% block js %}
-<script src="/assets/js/read_x2_combo.js"></script>
-{% endblock %}
-
-{% block page %}
-{# There's two titles here, but we only use the one for the left page, since
-   it's the only one that's not always "==> ==>". (It's not this once.) #}
-<h2 id="title">{{ data.page.title|raw }}</h2>
-<div id="media">
-    {# Only images here. #}
-    <div id="media-1">
-        {% for media in data.page.media %}
-        <img src="{{ media.url }}">
-        {% endfor %}
-    </div>
-    <div id="media-2">
-        {% for media in data.page2.media %}
-        <img src="{{ media.url }}">
-        {% endfor %}
-    </div>
-</div>
-<div id="content" data-s="{{ data.s }}" data-p="{{ data.p }}">
-    {% from "macros/read.html" import read_text, read_footer, read_commands %}
-    {% if not data.page.log_type or not data.page2.log_type %}
-        {# Single text #}
-        {% if (data.page.log_type) %}
-        {{ read_text(data.page) }}
-        {% elseif data.page2.log_type %}
-        {{ read_text(data.page2) }}
-        {% else %}
-        {# For spacing #}
-        <p class="comic-text"></p>
+{% set theme = get_theme() %}
+{% import "macros/general.html" as macros %}
+{% import "macros/read.html" as read %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MSPA Legacy</title>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        {# HACK: Avoid fucking up syntax highlighting #}
+        {% include "pageframe_style.html" %}
+        {% if data.didnt_save %}
+        <script>alert("You did not save your game!");</script>
         {% endif %}
-        <div class="commands">
-        {{ read_commands(data.page2) }}
-        </div>
-    {% else %}
-        {# Double text #}
-        <div id="text-1">
-            {{ read_text(data.page) }}
-            <div class="commands">
-                <div class="command">
-                    &gt;
-                    <a href="javascript:void(0)" class="tilted-arrow">
-                        <div>==&gt;&emsp;</div><div class="tilted-arrow-link">==&gt;</div>
-                    </a>
-                </div> 
-            </div>
-        </div>
-        <div id="text-2">
-            {{ read_text(data.page2) }}
-            <div class="commands">
-                <div class="command">
-                    &gt;
-                    <a href="javascript:void(0)" class="tilted-arrow flip">
-                        <div>==&gt;&emsp;</div><div class="tilted-arrow-link">==&gt;</div>
-                    </a>
-                </div>
-                {{ read_commands(data.page2) }}
-            </div>
-        </div>
-    {% endif %}
-    {{ read_footer(data.page) }}
-</div>
-{% endblock %}
+    </head>
+    <body topmargin="0" bottommargin="0" bgcolor="{{ theme.pageBg }}">
+        <center>
+        <table width="" height="" cellspacing="0" cellpadding="0" border="0" bgcolor="" background="">
+        <tbody>
+        {# LINKS #}
+        <tr>
+            <td>
+            <table width="1660" height="17" cellspacing="0" cellpadding="0" border="0" bgcolor="{{ theme.linksBg }}" background="">
+            <tbody>
+            <tr>
+            <td>
+            <center>
+                <img src="/assets/img/act6act5act1x2combo.gif">
+            </center>
+            </td>
+            </tr>
+            <tr>
+            <td border="0" valign="top" height="0" bgcolor="">
+                <center>
+                <font size="1" face="arial" color="{{ theme.linksColor }}">
+                <b>
+                    {% for link in data.links %}
+                        {% if link == "candycorn" %}
+                            &nbsp; <img src="{{ theme.candyCorn }}" border="0" align="absmiddle"> &nbsp;
+                        {% elseif link == "separator" %}
+                            |
+                        {% else %}
+                        <a href="{{ link.url }}"
+                           {{ link.newtab ? 'target="_blank"' : "" }}
+                           style="color: {{ attribute(theme.links, link.color) }};"><font color="{{ attribute(theme.links, link.color) }}">{{ link.text }}</font></a>
+                        {% endif %}
+                    {% endfor %}
+                    &nbsp; <img src="{{ theme.candyCorn }}" border="0" align="absmiddle"> &nbsp;
+                    {% for link in data.links %}
+                        {% if link == "candycorn" %}
+                            &nbsp; <img src="{{ theme.candyCorn }}" border="0" align="absmiddle"> &nbsp;
+                        {% elseif link == "separator" %}
+                            |
+                        {% else %}
+                        <a href="{{ link.url }}"
+                           {{ link.newtab ? 'target="_blank"' : "" }}
+                           style="color: {{ attribute(theme.links, link.color) }};"><font color="{{ attribute(theme.links, link.color) }}">{{ link.text }}</font></a>
+                        {% endif %}
+                    {% endfor %}
+                    <a name="TWO"></a>
+                </b>
+                </font>
+                </center>
+            </td>
+            </tr>
+            <tr><td></td></tr>
+            </tbody>
+            </table>
+            </td>
+        </tr>
+        {# CONTENT #}
+        <tr>
+            <td>
+            <table width="1660" height="" cellspacing="0" cellpadding="0" border="0" bgcolor="" background="">
+            <tbody>
+            <tr>
+            <td width="1660" height="100%" bgcolor="{{ theme.cardBgDark }}">
+            <table width="1660" height="" cellspacing="0" cellpadding="0" border="0" bgcolor="">
+            <tbody>
+            <tr>
+                <td height="7" bgcolor="{{ theme.cardBgDark }}"></td>
+            </tr>
+            <tr>
+            <td>
+            <center>
+            <table>
+            <tbody>
+            <tr>
+            <td valign="top">
+                <table width="650" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="{{ theme.cardBg }}">
+                <tbody>
+                    {{ macros.title(data.page.title) }}
+                    {{ read.media(data.page.media) }}
+                    <tr>
+                    <td height="17"></td>
+                    </tr>
+                    {{ read.text(data.page) }}
+                    <tr>
+                    <td height="17"></td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <table width="600" cellspacing="0" cellpadding="0" border="0" align="center">
+                    <tbody>
+                    <tr>
+                    <td>
+                        <font size="5">
+                            &gt; <a href="#TWO">
+                                <img src="/assets/img/act6act5act1x2arrows.gif" border="0">
+                            </a>
+                        </font>
+                        <br><br><br>
+                        {{ read.footer(data.page) }}
+                        <br><br>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </td>
+            <td width="25"></td>
+            <td valign="top">
+                <table width="650" cellspacing="0" cellpadding="0" border="0" align="center" bgcolor="{{ theme.cardBg }}">
+                <tbody>
+                    {{ macros.title(data.page2.title) }}
+                    {{ read.media(data.page2.media) }}
+                    <tr>
+                    <td height="17"></td>
+                    </tr>
+                    {{ read.text(data.page2) }}
+                    <tr>
+                    <td height="17"></td>
+                    </tr>
+                    <tr>
+                    <td>
+                    <table width="600" cellspacing="0" cellpadding="0" border="0" align="center">
+                    <tbody>
+                    <tr>
+                    <td>
+                        <font size="5">
+                            {{ read.commands(data.page2.commands) }}
+                        </font>
+                        <br><br><br>
+                        {{ read.footer(data.page) }}
+                        <br><br>
+                    </td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    </td>
+                    </tr>
+                </tbody>
+                </table>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            </center>
+            </td>
+            </tr>
+            <tr>
+                <td height="23" bgcolor="{{ theme.cardBgDark }}"></td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+        </tr>
+        {# FOOTER #}
+        <tr>
+            <td>
+            <table width="1660" height="110" cellspacing="0" cellpadding="0" border="0" bgcolor="" background="">
+            <tbody>
+            <tr>
+            <td width="1660" valign="middle" height="110" background="/assets/img/bannerframeX2.gif"></td>
+            </tr>
+            </tbody>
+            </table>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+        </center>
+    </body>
+</html>

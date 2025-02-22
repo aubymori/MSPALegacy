@@ -1,0 +1,12 @@
+.ddimgtooltip{
+box-shadow: 0px 0px 0px #818181; /*shadow for CSS3 capable browsers.*/
+-webkit-box-shadow: 0px 0px 0px #818181;
+-moz-box-shadow: 0px 0px 0px #818181;
+display:none;
+position:absolute;
+border:0px solid black;
+background:none;
+color: black;
+z-index:2000;
+padding: 4px;
+}

@@ -1,14 +1,52 @@
 {% extends "pageframe.html" %}
+{% import "macros/general.html" as macros %}
 
 {% block page %}
-<h2 id="title">404 Not Found</h2>
+{{ macros.title("404 Not Found") }}
+<tr>
+<td>
 <img src="/assets/img/404.gif" alt="404 Not Found">
-<div id="content">
-    <p class="comic-text">Wonders where the fuck that page went???</p>
-    <div id="page-footer">
-        <ul id="page-footer-left">
-            <li><a href="/">Start Over</a></li>
-        </ul>
-    </div>
-</div>
+</td>
+</tr>
+<tr>
+<td height="17"></td>
+</tr>
+<tr>
+<td>
+<table width="600" cellspacing="0" cellpadding="0" border="0" align="center">
+<tbody>
+<tr>
+<td>
+<center>
+<p style="font-weight: bold; font-family: courier, monospace;color:#000000">
+    Wonders where the fuck that page went???
+</p>
+</center>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+<tr>
+<td height="17"></td>
+</tr>
+<tr>
+<td>
+<table width="600" cellspacing="0" cellpadding="0" border="0" align="center">
+<tbody>
+<tr>
+<td>
+    <span style="font-size: 10px;">
+        <b>
+            <a href="/">Start Over</a>
+        </b>
+    </span>
+    <br><br>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
 {% endblock %}

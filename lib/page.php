@@ -40,21 +40,6 @@ function get_page_data(string $s, string $p, bool $ignore_commands = false, bool
                 "html" => file_get_contents("static/cascade.html")
             ];
             break;
-        case "009987":
-            $response->supercartridge = true;
-            $response->media[] = [
-                "type" => "supercartridge",
-                "html" => file_get_contents("static/collide.html")
-            ];
-            break;
-        case "0010027":
-            $response->supercartridge = true;
-            $response->media[] = [
-                "type" => "supercartridge",
-                "html" => file_get_contents("static/ACT7.html")
-            ];
-            break;
-            break;
         default:
             foreach ($medias as $media)
             {
@@ -114,21 +99,10 @@ function get_page_data(string $s, string $p, bool $ignore_commands = false, bool
                 // GIF
                 else
                 {
-                    // really hacky but whatever man
-                    if ($media == "/mspa/storyfiles/hs2/05423_2.gif")
-                    {
-                        $response->media[] = [
-                            "type" => "supercartridge",
-                            "html" => file_get_contents("static/transcripts/storyfiles/hs2/05423_2.gif.html")
-                        ];
-                    }
-                    else
-                    {
-                        $response->media[] = [
-                            "type" => "image",
-                            "url" => $media
-                        ];
-                    }
+                    $response->media[] = [
+                        "type" => "image",
+                        "url" => $media
+                    ];
                 }
             }
             break;
@@ -179,23 +153,6 @@ function get_page_data(string $s, string $p, bool $ignore_commands = false, bool
 
     // Localize links and image links
     replace_mspa_links($response->text);
-
-    // Transcriptions
-    $matches = null;
-    if (preg_match_all("/<img\s[^>]*?src\s*=\s*['\"]([^'\"]*?)['\"][^>]*?>/", $response->text, $matches, PREG_SET_ORDER))
-    {
-        foreach ($matches as $match)
-        {
-            $file = "static/transcripts/" . substr($match[1], 6) . ".html";
-            if (file_exists($file))
-            {
-                // i love how this has to be a ref. amazing.
-                $count = 1;
-                $transcript = file_get_contents($file);
-                $response->text = str_replace($match[0], $transcript, $response->text, $count);
-            }
-        }
-    }
 
     if (!$ignore_commands)
     {

@@ -1,4 +1,5 @@
 <?php
+require "swf_fixer.php";
 
 function mspa_funnel(string $uri, bool $nocdn = false)
 {
@@ -29,6 +30,14 @@ function mspa_funnel(string $uri, bool $nocdn = false)
         header($header);
     }
 
+    // Replace MSPA links in SWFs
+    if ($status == 200 && substr($url, -4) == ".swf" && $uri != "cascade.swf")
+    {
+        $fixed_swf = fix_swf($body);
+        header("Content-Length: " . strlen($fixed_swf));
+        echo $fixed_swf;
+        die();
+    }
     echo $body;
 
     // Prevent Twig from outputting

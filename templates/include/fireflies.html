@@ -1,0 +1,42 @@
+<style>
+    .content {
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        width: 714px;
+        height: auto;
+        padding-right: 15px;
+        padding-left: 15px;
+        z-index: 1;
+    }
+        
+    .boxtemplate {
+        z-index: 10;
+        padding-left: 0;
+        padding-right: 0;
+        position: absolute;
+        background: transparent;
+        border: none;
+        overflow: visible;
+    }
+    
+    .boxtemplate:hover {
+        display: none;
+        background: transparent;
+    }
+</style>
+{% set positions_map = [ 
+    { top: [ 200, 600,  50, 500 ], left: [ -300, -100, 400, 700 ] },
+    { top: [ 400,   0, 600,  50 ], left: [ -150,  -50, 300, 650 ] }, 
+    { top: [ 500, 200, 350,   0 ], left: [ -250, -150, 575, 750 ] },
+    { top: [  50, 400,  25, 250 ], left: [ -200,  -50, 300, 600 ] },
+    { top: [ 650,  50, 500, 300 ], left: [ -100, -100, 450, 750 ] }
+] %}
+{% set positions = positions_map[random(0, 4)] %}
+<div class="content">
+    <canvas id="fbox_0" class="boxtemplate" style="top: {{ positions.top[0] }}px; left: {{ positions.left[0] }}px;" width="200" height="150"></canvas>
+    <canvas id="fbox_1" class="boxtemplate" style="top: {{ positions.top[1] }}px; left: {{ positions.left[1] }}px;" width="200" height="150"></canvas>
+    <canvas id="fbox_2" class="boxtemplate" style="top: {{ positions.top[2] }}px; left: {{ positions.left[2] }}px;" width="200" height="150"></canvas>
+    <canvas id="fbox_3" class="boxtemplate" style="top: {{ positions.top[3] }}px; left: {{ positions.left[3] }}px;" width="200" height="150"></canvas>
+</div>
+<script src="/assets/js/firefly.js"></script>
