@@ -17,7 +17,7 @@ function fix_swf(string $swf)
     // Enumerate and replace story links
     $matches = [];
     if (!preg_match_all(
-    "/(?:http(?:s|):\/\/|)(?:www\.|)mspaintadventures\.com\/(?:scratch\.php|)\?s=(.*?)&p=([0-9]{6,})/",
+    "/(?:http(?:s|):\/\/|)(?:www\.|)mspaintadventures\.com\/(?:scratch\.php|)\?s=(.*?)&p=([0-9]{6,}|darkcage2)/",
     $inflated, $matches, PREG_SET_ORDER))
         return $swf;
     foreach ($matches as $match)
