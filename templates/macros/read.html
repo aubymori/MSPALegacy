@@ -143,6 +143,11 @@ style="border: 1px dashed grey; padding: 1px; background: {{ get_theme().logBg }
 
 {% macro commands(commands) %}
 {%- for command in commands -%}
+<font size="5"
+{% if data.theme == "homosuck" %}
+	  color="#000000"
+{% endif %}
+>
 &gt; <a href="/read/{{ data.s }}/{{ command.page }}">
     {% if data.theme == "trickster" %}
     {{- command.title|replace({"==&gt;": '<img src="/assets/img/sucker.gif" border="0">'})|raw -}}
@@ -150,9 +155,8 @@ style="border: 1px dashed grey; padding: 1px; background: {{ get_theme().logBg }
     {{- command.title|raw -}}
     {% endif %}
 </a>
-{% if loop.last == false %}
+</font>
 <br>
-{% endif %}
 {%- endfor -%}
 {% endmacro %}
 

@@ -48,14 +48,8 @@ onload="Sburb.initialize('JterniaDeploy', '{{ media.xml_url }}', false);"
 <tbody>
 <tr>
 <td>
-	<font size="5"
-{% if data.theme == "homosuck" %}
-		  color="#000000"
-{% endif %}
-	>
-		{{ read.commands(data.page.commands) }}
-	</font>
-	<br><br><br>
+	{{ read.commands(data.page.commands) }}
+	<br><br>
 {% if data.theme == "homosuck" %}
 	<font color="#000000">
 {% endif %}
