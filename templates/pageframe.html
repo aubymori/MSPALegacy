@@ -1,5 +1,5 @@
 {% set theme = get_theme() %}
-{% set page_width = data.hscroll ? 1200 : (data.options.classic ? 941 : 950) %}
+{% set page_width = data.hscroll ? 1200 : (data.options.classic and not data.page.supercartridge ? 941 : 950) %}
 {% import "macros/read.html" as read %}
 <!DOCTYPE html>
 <html>
@@ -140,7 +140,7 @@
             {# CLASSIC FOOTER #}
             {% if data.options.classic %}
             <tr>
-            <td>
+            <td bgcolor="{{ theme.cardBgDark }}">
                 <img src="{{ theme.footerClassic }}" border="0">
             </td>
             </tr>
