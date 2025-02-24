@@ -1,0 +1,42 @@
+{% extends "pageframe.html" %}
+{% import "macros/general.html" as macros %}
+
+{% macro checkbox(id, label, val) %}
+    <input type="checkbox" id="{{ id }}" name="{{ id }}" {{ val ? "checked" : "" }}>
+    <label for="{{ id }}"><b>{{ label }}</b></label>
+{% endmacro %}
+
+{% block page %}
+{{ macros.title("OPTIONS") }}
+<tr>
+<td height="17"></td>
+</tr>
+<tr>
+<td>
+<center>
+<table width="600" cellspacing="0" cellpadding="0" border="0" align="center">
+<tbody>
+<tr>
+<td>
+<form action="" method="post">
+    {{ _self.checkbox("autologs", "Automatically open logs", data.options.autologs) }}
+    <br>
+    {{ _self.checkbox("smallfonts", "Small fonts (pre-2012)", data.options.smallfonts) }}
+    <br>
+    {{ _self.checkbox("classic", "Classic style (pre-2012)", data.options.classic) }}
+    <br><br>
+    <center>
+        <input type="submit" value="Save options">
+    </center>
+</form>
+</td>
+</tr>
+<tr>
+<td height="17"></td>
+</tr>
+</tbody>
+</table>
+</center>
+</td>
+</tr>
+{% endblock %}

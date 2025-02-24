@@ -99,7 +99,7 @@ style="border: 1px dashed grey; padding: 1px; background: {{ get_theme().logBg }
 {% endif %}
 >
 {% if page.log_type != "|AUTHORLOG|" %}
-    <div>
+    <div style="{{ data.options.autologs ? 'display: none;' : ''}}">
         <button type="button" title="Click to show the text."
                 onmouseover="this.sv=this.style.backgroundColor;this.style.backgroundColor='#777777';"
                 onmouseout="if(this.sv)this.style.backgroundColor=this.sv; else this.style.backgroundColor='';"
@@ -107,7 +107,7 @@ style="border: 1px dashed grey; padding: 1px; background: {{ get_theme().logBg }
             Show {{ page.log_name }}
         </button>
     </div>
-    <div class="spoiler" style="display: none;">
+    <div class="spoiler" style="{{ data.options.autologs ? '' : 'display: none;'}}">
         <div>
             <button type="button" title="Click to hide the spoiler."
                     onclick="this.parentNode.parentNode.parentNode.children[0].style.display = ''; this.parentNode.parentNode.style.display = 'none'; return false;">
@@ -119,7 +119,10 @@ style="border: 1px dashed grey; padding: 1px; background: {{ get_theme().logBg }
         <tbody>
         <tr>
         <td width="100%" valign="top">
-            <p style="font-weight: bold; font-family: courier, monospace;color:{{ get_theme().pageColor }}">
+            <p style="font-weight: bold;
+                      font-family: courier, monospace;
+                      color:{{ get_theme().pageColor }};
+                      {{ data.options.smallfonts ? 'margin: 0;' : '' }}">
                 {{ page.text|raw|nl2br }}
             </p>
         </td>

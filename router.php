@@ -1,5 +1,6 @@
 <?php
 // Determines template to use and renders.
+require "lib/options.php";
 
 function betterParseUrl($url) {
     $purl = parse_url($url);
@@ -47,6 +48,11 @@ $routerUrl = betterParseUrl($_SERVER["REQUEST_URI"]);
 $template = "404";
 $data->theme = null;
 
+$data->options = (object)[];
+$data->options->autologs = get_bool_option("autologs");
+$data->options->smallfonts = get_bool_option("smallfonts");
+$data->options->classic = get_bool_option("classic");
+
 if (isset($routerUrl->path[0]))
 {
     switch (strtolower($routerUrl->path[0]))
@@ -61,6 +67,23 @@ if (isset($routerUrl->path[0]))
             }
 
             $template = "home";
+            break;
+        case "options":
+            if ($_SERVER["REQUEST_METHOD"] == "POST")
+            {
+                function update_opt($opt)
+                {
+                    global $data;
+                    $val = (isset($_POST[$opt]) && $_POST[$opt] == "on");
+                    set_bool_option($opt, $val);
+                    $data->options->{$opt} = $val;
+                }
+
+                update_opt("autologs");
+                update_opt("smallfonts");
+                update_opt("classic");
+            }
+            $template = "options";
             break;
         case "archive":
             $template = "archive";
@@ -587,6 +610,12 @@ $data->links = [
     ],
     "candycorn",
     [
+        "text" => "OPTIONS",
+        "url" => "/options",
+        "color" => "orange"
+    ],
+    "separator",
+    [
         "text" => "SECRETS",
         "url" => "http://www.mspaintadventures.com/unlock.html",
         "color" => "orange",
@@ -610,6 +639,7 @@ $homosuck_link_overrides = [
     "BORING.",
     "OVERPRICED TRASH.",
     "DUMB NOISE.",
+    "MORONS.",
     "BULLSHIT.",
     "WHATEVER.",
 ];

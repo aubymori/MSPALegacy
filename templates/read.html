@@ -35,12 +35,12 @@ onload="Sburb.initialize('JterniaDeploy', '{{ media.xml_url }}', false);"
 {{ macros.title(data.page.title) }}
 {{ read.media(data.page.media) }}
 <tr>
-<td height="17"></td>
+<td height="{{ data.options.smallfonts ? 3 : 17 }}"></td>
 </tr>
 {% endif %}
 {{ read.text(data.page) }}
 <tr>
-<td height="17"></td>
+<td height="{{ data.options.smallfonts ? 8 : 17 }}"></td>
 </tr>
 <tr>
 <td>

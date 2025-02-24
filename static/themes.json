@@ -5,7 +5,9 @@
         "cardBg": "#eeeeee",
         "cardBgDark": "#c6c6c6",
         "linksBg": "#5a5a5a",
+        "linksBgClassic": "#000000",
         "linksColor": "#ffffff",
+        "linksColorClassic": "#bbbbbb",
         "links": {
             "white": "#ffffff",
             "green": "#29ff4a",
@@ -15,6 +17,7 @@
         },
         "candyCorn": "/assets/img/candycorn.gif",
         "footer": "/assets/img/bannerframe.gif",
+        "footerClassic": "/assets/img/v2_mspalogo.gif",
         "logBg": "#efefef"
     },
     "scratch": {
@@ -25,6 +28,7 @@
         "cardBgDark": "#082a00",
         "linksBg": "#000000",
         "linksColor": "#ffffff",
+        "linksColorClassic": "#bbbbbb",
         "links": {
             "white": "#ffffff",
             "green": "#ffffff",
@@ -34,6 +38,7 @@
         },
         "candyCorn": "/assets/img/candycorn_scratch.gif",
         "footer": "/assets/img/bannerframe_scratch.png",
+        "footerClassic": "/assets/img/v2_mspalogo_scratch.gif",
         "logBg": "#000000"
     },
     "cascade": {
@@ -43,7 +48,9 @@
         "cardBg": "#262626",
         "cardBgDark": "#262626",
         "linksBg": "#5a5a5a",
+        "linksBgClassic": "#000000",
         "linksColor": "#ffffff",
+        "linksColorClassic": "#bbbbbb",
         "links": {
             "white": "#ffffff",
             "green": "#29ff4a",
@@ -53,6 +60,7 @@
         },
         "candyCorn": "/assets/img/candycorn.gif",
         "footer": "/assets/img/bannerframe.gif",
+        "footerClassic": "/assets/img/v2_mspalogo_cascade.gif",
         "logBg": "#262626"
     },
     "sbahj": {
@@ -62,6 +70,7 @@
         "cardBgDark": "#f400ec",
         "linksBg": "#000000",
         "linksColor": "#ffffff",
+        "linksColorClassic": "#bbbbbb",
         "links": {
             "white": "#ffffff",
             "green": "#29ff4a",
@@ -71,6 +80,7 @@
         },
         "candyCorn": "/assets/img/candycorn.gif",
         "footer": "/assets/img/bannerframe_sbahj.gif",
+        "footerClassic": "/assets/img/mspalogo_sbahj.jpg",
         "logBg": "#14ff23"
     },
     "trickster": {
@@ -92,6 +102,7 @@
         },
         "candyCorn": "/assets/img/candycorn.gif",
         "footer": "/assets/img/bannerframe_trickster.gif",
+        "footerClassic": "/assets/img/v2_mspalogo_trickster.gif",
         "logBg": "#ff73fd"
     },
     "homosuck": {
@@ -111,6 +122,7 @@
         },
         "candyCorn": "/assets/img/a6a6_tooth.gif",
         "footer": "/assets/img/a6a6_bannerframe.png",
+        "footerClassic": "/assets/img/v2_mspalogo_A6A6.gif",
         "logBg": "#073c00"
     }
 }

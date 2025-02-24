@@ -5,7 +5,7 @@
 {% else %}
         font-family: Verdana, Arial, Helvetica, sans-serif;
 {% endif %}
-        font-size: 14px;
+        font-size: {{ data.options.smallfonts ? 12 : 14 }}px;
         color: {{ theme.pageColor }};
         margin-top: 0px;
         margin-bottom: 0px;

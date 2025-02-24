@@ -1,5 +1,5 @@
 {% set theme = get_theme() %}
-{% set page_width = data.hscroll ? 1200 : 950 %}
+{% set page_width = data.hscroll ? 1200 : (data.options.classic ? 941 : 950) %}
 {% import "macros/read.html" as read %}
 <!DOCTYPE html>
 <html>
@@ -33,7 +33,13 @@
             {% if data.fireflies %}
             {% include "include/fireflies.html" %}
             {% endif %}
-            <table width="{{ page_width }}" height="17" cellspacing="0" cellpadding="0" border="0" bgcolor="{{ theme.linksBg }}" background="">
+            <table width="{{ page_width }}"
+                   height="17"
+                   cellspacing="0"
+                   cellpadding="0"
+                   border="0"
+                   bgcolor="{{ data.options.classic and theme.linksBgClassic ? theme.linksBgClassic : theme.linksBg }}"
+                   background="">
             <tbody>
             <tr>
             <td>
@@ -64,7 +70,11 @@
             {% else %}
             <td border="0" valign="top" height="0" bgcolor="">
                 <center>
+                {% if data.options.classic %}
+                <span style="font-size: 9px; line-height: normal; color: {{ theme.linksColorClassic ? theme.linksColorClassic : theme.linksColor }}">
+                {% else %}
                 <font size="1" face="{{ data.theme == "sbahj" ? "Comic Sans MS" : "arial"}}" color="{{ theme.linksColor }}">
+                {% endif %}
                 <b>
                     {% for link in data.links %}
                         {% if link == "candycorn" %}
@@ -78,7 +88,11 @@
                         {% endif %}
                     {% endfor %}
                 </b>
+                {% if data.options.classic %}
+                </span>
+                {% else %}
                 </font>
+                {% endif %}
                 </center>
             </td>
             {% endif %}
@@ -103,7 +117,7 @@
             {% endif %}
             >
             <tbody>
-            {% if not data.page.supercartridge %}
+            {% if not data.options.classic and not data.page.supercartridge %}
             <tr>
                 <td height="7" bgcolor="{{ theme.cardBgDark }}" background="{{ theme.cardBgDarkImg }}"></td>
             </tr>
@@ -123,6 +137,14 @@
             <tr>
                 <td height="23" bgcolor="{{ theme.cardBgDark }}" background="{{ theme.cardBgDarkImg }}"></td>
             </tr>
+            {# CLASSIC FOOTER #}
+            {% if data.options.classic %}
+            <tr>
+            <td>
+                <img src="{{ theme.footerClassic }}" border="0">
+            </td>
+            </tr>
+            {% endif %}
             </tbody>
             </table>
             </td>
@@ -131,6 +153,7 @@
             </table>
             </td>
         </tr>
+        {% if not data.options.classic %}
         {# FOOTER #}
         <tr>
             <td>
@@ -143,6 +166,7 @@
             </table>
             </td>
         </tr>
+        {% endif %}
         </tbody>
         </table>
         </center>

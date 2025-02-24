@@ -19,7 +19,13 @@
         {# LINKS #}
         <tr>
             <td>
-            <table width="1660" height="17" cellspacing="0" cellpadding="0" border="0" bgcolor="{{ theme.linksBg }}" background="">
+            <table width="1660"
+                   height="17"
+                   cellspacing="0"
+                   cellpadding="0"
+                   border="0"
+                   bgcolor="{{ data.options.classic and theme.linksBgClassic ? theme.linksBgClassic : theme.linksBg }}"
+                   background="">
             <tbody>
             <tr>
             <td>
@@ -31,7 +37,11 @@
             <tr>
             <td border="0" valign="top" height="0" bgcolor="">
                 <center>
-                <font size="1" face="arial" color="{{ theme.linksColor }}">
+                {% if data.options.classic %}
+                <span style="font-size: 9px; line-height: normal; color: {{ theme.linksColorClassic ? theme.linksColorClassic : theme.linksColor }}">
+                {% else %}
+                <font size="1" face="{{ data.theme == "sbahj" ? "Comic Sans MS" : "arial"}}" color="{{ theme.linksColor }}">
+                {% endif %}
                 <b>
                     {% for link in data.links %}
                         {% if link == "candycorn" %}
@@ -58,7 +68,11 @@
                     {% endfor %}
                     <a name="TWO"></a>
                 </b>
+                {% if data.options.classic %}
+                </span>
+                {% else %}
                 </font>
+                {% endif %}
                 </center>
             </td>
             </tr>
@@ -76,13 +90,15 @@
             <td width="1660" height="100%" bgcolor="{{ theme.cardBgDark }}">
             <table width="1660" height="" cellspacing="0" cellpadding="0" border="0" bgcolor="">
             <tbody>
+            {% if not data.options.classic %}
             <tr>
                 <td height="7" bgcolor="{{ theme.cardBgDark }}"></td>
             </tr>
+            {% endif %}
             <tr>
             <td>
             <center>
-            <table>
+            <table {{ data.options.classic ? 'style="margin-top: -3px;"' : '' }}>
             <tbody>
             <tr>
             <td valign="top">
@@ -91,11 +107,11 @@
                     {{ macros.title(data.page.title) }}
                     {{ read.media(data.page.media) }}
                     <tr>
-                    <td height="17"></td>
+                    <td height="{{ data.options.smallfonts ? 3 : 17 }}"></td>
                     </tr>
                     {{ read.text(data.page) }}
                     <tr>
-                    <td height="17"></td>
+                    <td height="{{ data.options.smallfonts ? 8 : 17 }}"></td>
                     </tr>
                     <tr>
                     <td>
@@ -108,7 +124,7 @@
                                 <img src="/assets/img/act6act5act1x2arrows.gif" border="0">
                             </a>
                         </font>
-                        <br><br><br>
+                        <br><br>
                         {{ read.footer(data.page) }}
                         <br><br>
                     </td>
@@ -127,11 +143,11 @@
                     {{ macros.title(data.page2.title) }}
                     {{ read.media(data.page2.media) }}
                     <tr>
-                    <td height="17"></td>
+                    <td height="{{ data.options.smallfonts ? 3 : 17 }}"></td>
                     </tr>
                     {{ read.text(data.page2) }}
                     <tr>
-                    <td height="17"></td>
+                    <td height="{{ data.options.smallfonts ? 8 : 17 }}"></td>
                     </tr>
                     <tr>
                     <td>
@@ -142,7 +158,7 @@
                         <font size="5">
                             {{ read.commands(data.page2.commands) }}
                         </font>
-                        <br><br><br>
+                        <br><br>
                         {{ read.footer(data.page) }}
                         <br><br>
                     </td>
@@ -163,6 +179,14 @@
             <tr>
                 <td height="23" bgcolor="{{ theme.cardBgDark }}"></td>
             </tr>
+            {# CLASSIC FOOTER #}
+            {% if data.options.classic %}
+            <tr>
+            <td>
+                <img src="{{ theme.footerClassic }}" border="0">
+            </td>
+            </tr>
+            {% endif %}
             </tbody>
             </table>
             </td>
@@ -171,6 +195,7 @@
             </table>
             </td>
         </tr>
+        {% if not data.options.classic %}
         {# FOOTER #}
         <tr>
             <td>
@@ -183,6 +208,7 @@
             </table>
             </td>
         </tr>
+        {% endif %}
         </tbody>
         </table>
         </center>
